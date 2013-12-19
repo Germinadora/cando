@@ -156,13 +156,13 @@ if (Meteor.isClient) {
             try {
                 outroUsuario = (Meteor.users.findOne(acordo.destinatario).profile.name).toString();
             } catch(err) {
-                outroUsuario = "";
+                outroUsuario = "ERROR1";
             }
         } else {
             try {
                 outroUsuario = (Meteor.users.findOne(acordo.remetente).profile.name).toString();
             } catch(err) {
-                outroUsuario = "";
+                outroUsuario = "ERROR2";
             }
         }
         

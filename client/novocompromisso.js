@@ -1,7 +1,6 @@
-if (Meteor.isClient) {
     Template.novoCompromisso.tarefas = function() {
         return novasTarefas.find();
-    };
+    }
     
     Template.novoCompromisso.rendered = function() {
         $( '#frm-add' ).parsley();
@@ -41,7 +40,7 @@ if (Meteor.isClient) {
                 }
             } });
         });
-    };
+    }
     
     Template.novoCompromisso.events ({
        'keypress input#frm-requisitos': function (evt) {
@@ -76,50 +75,73 @@ if (Meteor.isClient) {
             listaUsuarios.push(usuario);
         });
         return listaUsuarios;
-    };
+    }
     
     Template.novoCompromisso.usuario = function() {
         return Meteor.user();
-    };
+    }
     
+    function enviarCompromisso() {
+    	if($( '#frm-add' ).parsley( 'validate' )) {
+			if(typeof Session.get("responsavel") === 'undefined')
+				var responsavel = Meteor.userId();
+			else
+				var responsavel = Session.get("responsavel");
+			var vencimento = new Date($('#frm-vencimento').val()+" 00:00:00");
+			var requisitos = new Array();
+			novasTarefas.find().forEach(function (novaTarefa) {
+			  requisitos.push(novaTarefa.tarefa);
+			});
+			var remetente = Meteor.userId();
+			var destinatario = $('#frm-para').attr("data-val");
+
+			// O Destinarios esta em branco, deve ser para ele mesmo
+			if (typeof destinatario === 'undefined')
+				destinatario = remetente
+			
+			if(remetente == destinatario)
+				aceito = true;
+			else
+				aceito = false;
+		
+			Acordos.insert({
+				titulo: $('#frm-titulo').val(), 
+				vencimento: vencimento, 
+				remetente: remetente, 
+				destinatario: destinatario, 
+				responsavel: responsavel, 
+				requisitos: requisitos, 
+				obs:$('#frm-obs').val(), 
+				aceito: aceito
+				}, 
+				function(error,doc) {
+					if(doc) { 
+						$.bootstrapGrowl("Compromisso criado com sucesso.", { type: 'success' });
+						Router.go('home');
+					}
+					else
+						$.bootstrapGrowl("Erro ao criar compromisso.", { type: 'error' });
+				});
+	    }
+    }
+
+    function resetarFormularioCompromisso() {
+	$('#frm-add').each(function(){
+	    this.reset();
+	});
+	Session.set("responsavel", Meteor.userId());
+	$('#usuario-pic').addClass("selected");
+	$('#destinatario-pic').removeClass("selected");
+	$('#destinatario-pic').fadeOut();
+	
+	novasTarefas.remove({});
+    }
     
     Template.novoCompromisso.events({
         'click #btn-enviar': function () {
             event.preventDefault();
-            if($( '#frm-add' ).parsley( 'validate' )) {
-                if(typeof Session.get("responsavel") === 'undefined')
-                    var responsavel = Meteor.userId();
-                else
-                    var responsavel = Session.get("responsavel");
-                var vencimento = new Date($('#frm-vencimento').val()+" 00:00:00");
-                var requisitos = new Array();
-                novasTarefas.find().forEach(function (novaTarefa) {
-                  requisitos.push(novaTarefa.tarefa);
-                });
-                var remetente = Meteor.userId();
-                var destinatario = $('#frm-para').attr("data-val");
-                if(remetente == destinatario)
-                    aceito = true;
-                else
-                    aceito = false;
-
-                Acordos.insert({titulo:$('#frm-titulo').val(), vencimento:vencimento, remetente:remetente, destinatario:destinatario, responsavel:responsavel, requisitos:requisitos, obs:$('#frm-obs').val(), aceito:aceito}, function(error,doc) {
-                    if(doc) $.bootstrapGrowl("Compromisso criado com sucesso.", { type: 'success' });
-                    Router.go('home');
-                });
-                //***Reset no form
-                $('#frm-add').each(function(){
-                    this.reset();
-                });
-                Session.set("responsavel", Meteor.userId());
-                $('#usuario-pic').addClass("selected");
-                $('#destinatario-pic').removeClass("selected");
-                $('#destinatario-pic').fadeOut();
-                
-                novasTarefas.remove({});
-                //****************
-                
-            } 
+            enviarCompromisso();
+            resetarFormularioCompromisso();
         },
         'keypress #frm-para': function () {
             if($("#frm-para").val() == "") {
@@ -140,4 +162,3 @@ if (Meteor.isClient) {
             $('#usuario-pic').removeClass("selected");
         }
     });
-}
