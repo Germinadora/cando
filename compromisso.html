@@ -1,0 +1,127 @@
+<template name="compromisso">
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            {{> blocoNotas }}
+        </div>
+        <div class="col-md-8 col-sm-8">
+            {{#with compromissoInfo}}
+                {{> compromissoInfo }}
+            {{/with}}
+        </div>
+    </div>
+</template>
+
+<template name="compromissoInfo">
+    <div class="panel panel-default">
+		<div class="panel-heading">Para {{vencimento}}</div>
+		<div class="panel-body">
+			<h4 class="text-center">{{titulo}}</h4>
+            <span class="outro-usuario"><i class="icon-user"></i> {{outroUsuario}}</span>
+            {{> compromissoAcoes}}
+            <p>{{obs}}</p>
+            
+            <div class="panel panel-info">
+                <div class="panel-heading">Quadro Compartilhado</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 col-sm-4">
+                            <div class="alert alert-info quadrinho">
+                                <p><strong>Checklist</strong></p>
+                                {{#each requisitos}}<p><small>{{this}}</small></p>{{/each}}
+                            </div>
+                        </div>
+                        {{#each avisos}}
+                            {{> quadrinho}}
+                        {{/each}}
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input type="text" id="frm-aviso" name="frm-aviso" class="form-control" placeholder="Adicionar um novo aviso ao quadro..." data-rangelength="[1,200]" maxlength="200">
+                        <span class="input-group-addon btn-add-enter" id="btn-add-aviso" title="Pressione ENTER ou clique aqui para adicionar">&crarr;</span>
+                    </div>
+                </div>
+            </div>
+		</div>
+	</div>
+</template>
+
+<template name="compromissoAcoes">
+    <div class="row">
+        <div class="col-xs-8 col-sm-8 col-md-8">{{#each rotulos}}<span class="label label-default">{{this}}</span> {{/each}}</div>
+        <div class="col-xs-4 col-sm-4 col-md-4">
+            {{#if cancelado}}
+                <span class="label label-danger">Compromisso cancelado</span>
+            {{/if}}
+            {{#unless cancelado}}
+                {{#if aceito}}
+                    {{#if feito}}
+                        <div><span class="label label-success">Compromisso feito! =]</span> <button title="Não feito" onclick="compromissoFeito('{{this._id}}',false)" class="btn btn-warning btn-feito icon-remove"></button></div>
+                    {{/if}}
+                    {{#unless feito}}
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button title="Feito!" onclick="compromissoFeito('{{this._id}}',true)" class="btn btn-success btn-feito icon-ok"></button>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button>
+                            </div>
+                        </div>
+                    {{/unless}}
+                {{/if}}
+                {{#unless aceito}}
+                    {{#if esperandoResposta}}
+                        {{#if recusado}}
+                            <div><span class="label label-danger">Compromisso recusado pelo outro usuário</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button></div>
+                        {{/if}}
+                        {{#unless recusado}}
+                            <span>Aguardando resposta do outro usuário</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button>
+                        {{/unless}}
+                    {{/if}}
+                    {{#unless esperandoResposta}}
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button title="Aceitar" onclick="compromissoAceito('{{this._id}}',true)" class="btn btn-success btn-feito icon-thumbs-up-alt"></button>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <button title="Recusar" onclick="compromissoRecusado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-thumbs-down-alt"></button>
+                            </div>
+                        </div>
+                    {{/unless}}
+                {{/unless}}
+            {{/unless}}
+        </div>
+    </div>
+</template>
+
+
+<template name="blocoNotas">
+    <div class="panel panel-default" id="pn-notas">
+        <div class="panel-heading">Notas Pessoais</div>
+        <div class="panel-body">
+            <div class="input-group">
+                <input type="text" class="form-control" name="frm-nota" id="frm-nota" placeholder="Digite uma nova nota..." required="required" data-rangelength="[1,200]" maxlength="200">
+                <span class="input-group-addon btn-add-enter" id="btn-add-nota" title="Pressione ENTER ou clique aqui para adicionar">&crarr;</span>
+            </div>
+            {{#if notas}}<ul>{{/if}}
+                {{#constant}}<editable>{{/constant}}
+                {{#each notas}}
+                    {{> nota}}
+                {{/each}}
+            {{#if notas}}</ul>{{/if}}
+        </div>
+    </div>
+</template>
+
+<template name="nota">
+    <li><span class="editable" data-id="{{_id}}">{{nota}}</span></li>
+</template>
+    
+<template name="quadrinho">
+    <div class="col-md-4 col-sm-4">
+        <div class="alert alert-warning alert-dismissable quadrinho">
+            <button type="button" class="close" aria-hidden="true" data-id="{{this._id}}">&times;</button>
+            {{aviso}}
+        </div>
+    </div>
+</template>

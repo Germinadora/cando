@@ -1,0 +1,12 @@
+{
+  "packages": {
+    "momentjs": {},
+    "parsleyjs": {},
+    "connect": {},
+    "bootstrap-3": {},
+    "bootstrap-growl": {},
+    "iron-router": {},
+    "x-editable-bootstrap3": {},
+    "jquery.autocomplete": {}
+  }
+}

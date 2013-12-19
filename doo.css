@@ -1,0 +1,125 @@
+/* By Vicente Machado */
+
+.main-container {
+  margin-top: 70px;
+}
+
+.add-form {
+ position:absolute;
+ z-index:1000;
+ width:360px; 
+}
+
+.list-group-item {
+  border: 0px;
+  padding: 20px 5px;
+}
+
+.list-acordo-atrasado:hover {
+	background-color: #FFCAD6;
+	cursor: pointer;
+}
+
+.list-acordo:hover {
+	background-color: #D2E5F8;
+}
+
+h4, .panel-heading {
+	cursor: default;
+}
+
+.btn-form {
+  width: 105px;
+  margin:0 auto;
+}
+
+.panel {
+  margin-bottom: 20px;
+  border: 0px;
+  -webkit-box-shadow: 0px 0px 0px rgba(0,0,0,0.05);
+  box-shadow: 0px 0px 0px rgba(0,0,0,0.05);
+}
+
+.col-md-6-left {
+    border-right: 1px solid #ddd;
+  }
+  
+#login-buttons {
+	margin-top:12px;
+	margin-left:14px;
+}
+
+.login-display-name {
+    color: #fff;
+    cursor: default;
+}
+
+.navbar-default .navbar-nav>li>a {
+    cursor: pointer;
+}
+
+.profile-pic {
+    width:60px;
+    height:60px;
+    cursor: pointer;
+}
+
+.profile-pic.selected {
+    box-shadow: 1px 1px 12px;
+}
+
+.btn-feito {
+    width: 36px;
+    height: 36px;
+    padding: 0px;
+}
+
+.outro-usuario {
+    font-size: 0.7em;
+    margin-left: 5px;
+    display:inline-block;
+}
+
+.list-group a {
+    color: inherit;
+}
+
+#pn-notas ul {
+    margin-top:20px;
+}
+
+#pn-notas ul li, #pn-novas-tarefas ul li {
+    margin: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.btn-add-enter {
+    cursor: pointer;
+}
+
+.pics-box {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.compromisso-status {
+    font-size: 0.7em;
+}
+
+.quadrinho {
+    box-shadow: 4px 4px 4px rgba(0,0,0,0.3);
+}
+
+/*Autocomplete*/
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+/*Autocomplete*/
+
+@media (min-width: 1900px) {
+  #pn-add {
+    display: block!important;
+  }
+}

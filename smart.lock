@@ -1,0 +1,57 @@
+{
+  "meteor": {},
+  "dependencies": {
+    "basePackages": {
+      "momentjs": {},
+      "parsleyjs": {},
+      "connect": {},
+      "bootstrap-3": {},
+      "bootstrap-growl": {},
+      "iron-router": {},
+      "x-editable-bootstrap3": {},
+      "jquery.autocomplete": {}
+    },
+    "packages": {
+      "momentjs": {
+        "git": "https://github.com/crapthings/meteor-momentjs.git",
+        "tag": "v2.1.0.2",
+        "commit": "59a762e297082eea8b8cae00374c2b7ac6f89529"
+      },
+      "parsleyjs": {
+        "git": "https://github.com/nate-strauser/meteor-parsleyjs.git",
+        "tag": "v1.1.7",
+        "commit": "035a1e56a78e50369686b7e281aa71e3daf3729a"
+      },
+      "connect": {
+        "git": "https://github.com/peerlibrary/meteor-connect.git",
+        "tag": "v2.8.5.2",
+        "commit": "54fb2c1ab97aa0c43cf86d2f15d4b100cdf3a284"
+      },
+      "bootstrap-3": {
+        "git": "https://github.com/mangasocial/meteor-bootstrap-3.git",
+        "tag": "v0.3.7",
+        "commit": "5dd0d142c870647b910be80bc777b96f0dd45e5e"
+      },
+      "bootstrap-growl": {
+        "git": "https://github.com/TimHeckel/meteor-bootstrap-growl.git",
+        "tag": "v0.1.1",
+        "commit": "674fd231a46e405f8d4eb463725d8003a02374ec"
+      },
+      "iron-router": {
+        "git": "https://github.com/EventedMind/iron-router.git",
+        "tag": "v0.6.1",
+        "commit": "4e1ee0581d68bff422a915dacb0bd30eae10fe08"
+      },
+      "x-editable-bootstrap3": {
+        "git": "https://github.com/JustinSGray/meteor-x-editable-bootstrap.git",
+        "tag": "v1.5.1",
+        "commit": "33eeb067df8e68f2db0c66dabc4ae9de2bdd5906"
+      },
+      "jquery.autocomplete": {
+        "git": "https://github.com/kidovate/meteor-jquery.autocomplete.git",
+        "tag": "v1.2.9",
+        "commit": "a0490281cd3fdc7196093350fa38f9180a4460f5"
+      }
+    }
+  }
+}

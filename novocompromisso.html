@@ -1,0 +1,84 @@
+<template name="novoCompromisso">
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Criar Compromisso</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <form id="frm-add" data-validate="parsley" novalidate>
+                                <div class="col-md-6 col-sm-6">
+                                  <div class="form-group">
+                                    <div class="controls">
+                                        <label class="control-label" for="frm-para">Com quem?</label>
+                                        <input type="text" class="form-control" name="frm-para" id="frm-para" placeholder="Nome da pessoa ou em branco para você mesmo" data-rangelength="[3,50]" maxlength="50">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="controls">
+                                        <label class="control-label" for="frm-para">Quem vai executar e entregar essa demanda?</label>
+                                        <div class="row text-center pics-box">
+                                            <div class="col-xs-6 col-sm-6 col-md-6"><img id="usuario-pic" class="profile-pic selected" src="http://graph.facebook.com/{{usuario.services.facebook.id}}/picture?width=120&height=120" title="{{usuario.profile.name}}"></div>
+                                            <div class="col-xs-6 col-sm-6 col-md-6"><img id="destinatario-pic" class="profile-pic" src="" style="display:none;"></div>
+                                        </div>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label" for="frm-titulo">O quê?</label>
+                                    <div class="controls">
+                                      <input type="text" class="form-control" name="frm-titulo" id="frm-titulo" placeholder="Assunto ou breve descrição do compromisso" required="required" data-rangelength="[3,50]" maxlength="50">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label class="control-label" for="frm-vencimento">Até quando?</label>
+                                    <div class="controls">
+                                      <input type="date" class="form-control" name="frm-vencimento" id="frm-vencimento" title="Data máxima para o compromisso ser realizado" data-type="dateIso" required="required">
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <label class="control-label" for="frm-titulo">Observações</label>
+                                        <div class="controls">
+                                            <textarea class="form-control" name="frm-obs" id="frm-obs" rows="3" placeholder="Observações ou maiores informações sobre o compromisso" data-rangelength="[3,1000]" maxlength="1000"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label">Checklist</label>
+                                        <div class="input-group">
+                                            <input type="text" id="frm-requisitos" class="form-control" placeholder="Adicione tarefas a esse compromisso" data-rangelength="[1,140]" maxlength="140">
+                                            <span class="input-group-addon btn-add-enter" id="btn-add-tarefa" title="Pressione ENTER ou clique aqui para adicionar">&crarr;</span>
+                                        </div>
+                                    </div>
+                                    {{#if tarefas}}
+                                        <div id="pn-novas-tarefas">
+                                            <ul>
+                                                {{#constant}}<editable>{{/constant}}
+                                                {{#each tarefas}}
+                                                    {{> tarefa}}
+                                                {{/each}}
+                                            </ul>
+                                        </div>
+                                    {{/if}}
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="row text-center">
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <a href="{{pathFor 'home'}}" class="btn btn-default btn-form">Voltar</a>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6">
+                        <button class="btn btn-success btn-form" id="btn-enviar">Enviar</button>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+    
+<template name="tarefa">
+    <li><span class="editable" data-id="{{_id}}">{{tarefa}}</span></li>
+</template>

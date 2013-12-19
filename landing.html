@@ -1,0 +1,29 @@
+<template name="landing">
+    <div class="container-fluid">
+      <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-brand">CanDo</a>
+          </div>
+          <div class="collapse navbar-collapse" style>
+            <ul class="nav navbar-nav">
+              <li>
+                {{loginButtons}}
+              </li>
+            </ul>
+          </div>
+          <div class="collapse notifications-collapse" style></div>
+        </div>
+      </div>
+      <div class="main-container container">
+        <div class="row">
+          <div class="col-md-8">
+			<h4 class="text-center">Bem-vindo ao CanDo. Faça o login para começar.</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+</template>
