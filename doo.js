@@ -30,7 +30,7 @@ if (Meteor.isClient) {
 	Template.atrasado.blocos = function() {
         var hoje = new Date();
         hoje.setHours(0,0,0,0);
-        var acordosAtrasados = Acordos.find({aceito:true, feito:{$ne:true}, cancelado:{$ne:true}, vencimento:{$lt:hoje}, $or:[{destinatario:Meteor.userId()}, {remetente:Meteor.userId()}]},{sort: {vencimento: -1}}); //acordos com vencimento anterior a hoje
+        var acordosAtrasados = Acordos.find({aceito:true, feito:{$ne:true}, cancelado:{$ne:true}, vencimento:{$lt:hoje}, $or:[{remetente:Meteor.userId()}, {destinatario:Meteor.userId()}]},{sort: {vencimento: -1}}); //acordos com vencimento anterior a hoje
         return criarBlocos(acordosAtrasados);
     };
     
