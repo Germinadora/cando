@@ -11,8 +11,6 @@ momentjs
 parsleyjs
 connect
 bootstrap-3
-insecure
-autopublish
 bootstrap-growl
 iron-router
 x-editable-bootstrap3

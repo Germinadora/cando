@@ -1,8 +1,5 @@
 if (Meteor.isClient) {
-    Meteor.subscribe("acordos");
-    Meteor.subscribe("notas");
-    Meteor.subscribe("avisos");
-    
+
 	Template.hoje.data = function() {
         var hoje = new Date();
         hoje.setHours(0,0,0,0);
@@ -201,23 +198,3 @@ if (Meteor.isClient) {
 
 }
 
-if (Meteor.isServer) {
-//    Acordos.allow({
-//      insert: function (userId, doc) {
-//          return (userId && ((doc.remetente === userId) || (doc.destinatario === userId)));
-//      },
-//      update: function (userId, doc, fields, modifier) {
-//          return (userId && ((doc.remetente === userId) || (doc.destinatario === userId)));
-//      },
-//      fetch: ['responsavel']
-//    });
-//    
-    
-//    Meteor.publish(function () {
-//        return Meteor.users.find({},{fields: {'_id': 1, 'name': 1}});
-//    });
-//    
-//    Meteor.publish("acordos",function () {
-//        return Acordos.find({$or:[{destinatario:this.userId}, {remetente:this.userId}]});
-//    });
-}
