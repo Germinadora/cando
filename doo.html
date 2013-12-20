@@ -8,13 +8,7 @@
     {{#constant}}
         <div id="fb-root"></div>
     {{/constant}}
-    
-    {{#if currentUser}}
-        {{> main}}
-    {{/if}}
-    {{#unless currentUser}}
-        {{> landing}}
-    {{/unless}}
+    {{yield}}
 </body>
 
 <template name="main">
@@ -48,12 +42,16 @@
         </div>
       </div>
       <div class="main-container container">
-        {{> routerLayout}}
-        {{renderRouter}}
+         {{yield}}
       </div>
     </div>
 </template>
 
 <template name="routerLayout">
-    {{yield}}
+    {{#if currentUser}}
+        {{> main}}
+    {{/if}}
+    {{#unless currentUser}}
+        {{> landing}}
+    {{/unless}}
 </template>
