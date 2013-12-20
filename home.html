@@ -74,7 +74,7 @@
                 <td class="compromisso-status text-right"><span class="label label-danger">Compromisso Recusado</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button></td>
             {{/if}}
             {{#unless recusado}}
-                <td class="compromisso-status"><span class="label label-info">Aguardando resposta...</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button></td>
+                <td class="compromisso-status"><span class="label label-info">Aguardando usuário</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button></td>
             {{/unless}}
         {{/if}}
         {{#unless esperandoResposta}}

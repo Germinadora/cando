@@ -24,12 +24,14 @@
                 <div class="panel-heading">Quadro Compartilhado</div>
                 <div class="panel-body">
                     <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            <div class="alert alert-info quadrinho">
-                                <p><strong>Checklist</strong></p>
-                                {{#each requisitos}}<p><small>{{this}}</small></p>{{/each}}
+                        {{#if requisitos}}
+                            <div class="col-md-4 col-sm-4">
+                                <div class="alert alert-info quadrinho">
+                                    <p><strong>Checklist</strong></p>
+                                    {{#each requisitos}}<p><small>{{this}}</small></p>{{/each}}
+                                </div>
                             </div>
-                        </div>
+                        {{/if}}
                         {{#each avisos}}
                             {{> quadrinho}}
                         {{/each}}
@@ -75,7 +77,7 @@
                             <div><span class="label label-danger">Compromisso recusado pelo outro usuário</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button></div>
                         {{/if}}
                         {{#unless recusado}}
-                            <span>Aguardando resposta do outro usuário</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button>
+                            <span>Pendente</span> <button title="Cancelar" onclick="compromissoCancelado('{{this._id}}',true)" class="btn btn-danger btn-feito icon-trash"></button>
                         {{/unless}}
                     {{/if}}
                     {{#unless esperandoResposta}}
