@@ -65,7 +65,7 @@ h4, .panel-heading {
 }
 
 .profile-pic.selected {
-    box-shadow: 1px 1px 12px;
+    box-shadow: 1px 1px 15px 5px #339213;
 }
 
 .small-profile-pic {
@@ -78,6 +78,11 @@ h4, .panel-heading {
     position: relative;
     top: -5px;
     left: -7px;
+}
+
+.profile-pic-subtitle {
+    display: block;
+    margin-top: 10px;
 }
 
 .btn-feito {

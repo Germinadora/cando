@@ -45,24 +45,13 @@
                     $('#destinatario-pic').fadeIn();
                 $('#destinatario-pic').attr("src","http://graph.facebook.com/"+usuarioSelecionado.services.facebook.id+"/picture?width=120&height=120");
                 $('#destinatario-pic').attr("title", usuarioSelecionado.profile.name);
+                $('#destinatario-subtitle').html(usuarioSelecionado.profile.name+" vai entregar");
+                selecionarDestinatario();
             } else {
                 $.bootstrapGrowl("Usuário não cadastrado no CanDo.", { type: 'warning' });
             }
         } });
     }
-    
-    Template.novoCompromisso.events ({
-       'keypress input#frm-requisitos': function (evt) {
-            if (evt.which === 13) {
-              event.preventDefault();
-              addTarefa();
-            }
-        },
-        
-        'click #btn-add-tarefa': function() {
-            addTarefa();
-        }
-    });
     
     function addTarefa() {
         var novaTarefa = $('#frm-requisitos').val();
@@ -147,6 +136,17 @@
     }
     
     Template.novoCompromisso.events({
+        'keypress input#frm-requisitos': function (evt) {
+            if (evt.which === 13) {
+              event.preventDefault();
+              addTarefa();
+            }
+        },
+        
+        'click #btn-add-tarefa': function() {
+            addTarefa();
+        },
+        
         'click #btn-enviar': function () {
             event.preventDefault();
             enviarCompromisso();
@@ -154,20 +154,30 @@
         },
         'keypress #frm-para': function () {
             if($("#frm-para").val() == "") {
-                Session.set("responsavel", Meteor.userId());
-                $('#usuario-pic').addClass("selected");
-                $('#destinatario-pic').removeClass("selected");
-                $('#destinatario-pic').fadeOut();
+                selecionarUsuario();
             }
         },
-        'click #usuario-pic': function () {
-            Session.set("responsavel", Meteor.userId());
-            $('#usuario-pic').addClass("selected");
-            $('#destinatario-pic').removeClass("selected");
+        'click #usuario-pic': function() {
+            selecionarUsuario()
         },
-        'click #destinatario-pic': function () {
-            Session.set("responsavel", usuarioSelecionado._id); 
-            $('#destinatario-pic').addClass("selected");
-            $('#usuario-pic').removeClass("selected");
+        'click #destinatario-pic': function() {
+            selecionarDestinatario()
         }
     });
+
+function selecionarUsuario() {
+    Session.set("responsavel", Meteor.userId());
+    $('#usuario-pic').addClass("selected");
+    $('#usuario-subtitle').fadeIn();
+    $('#destinatario-pic').removeClass("selected");
+    $('#destinatario-pic').fadeOut();
+    $('#destinatario-subtitle').fadeOut();
+}
+
+function selecionarDestinatario() {
+    Session.set("responsavel", usuarioSelecionado._id); 
+    $('#destinatario-pic').addClass("selected");
+    $('#destinatario-subtitle').fadeIn();
+    $('#usuario-pic').removeClass("selected");
+    $('#usuario-subtitle').fadeOut();
+}
