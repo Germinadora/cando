@@ -121,8 +121,9 @@
     
 <template name="quadrinho">
     <div class="col-md-4 col-sm-4">
-        <div class="alert alert-warning alert-dismissable quadrinho">
-            <button type="button" class="close" aria-hidden="true" data-id="{{this._id}}">&times;</button>
+        <div class="alert alert-warning quadrinho {{#if avisoProprio}}alert-dismissable{{/if}}">
+            {{#if avisoProprio}}<button type="button" class="close" aria-hidden="true" data-id="{{this._id}}">&times;</button>{{/if}}
+            {{#unless avisoProprio}}<img class="profile-pic small-profile-pic profile-pic-corner img-circle" src="http://graph.facebook.com/{{outroUsuario.idFacebook}}/picture?width=120&height=120" title="{{outroUsuario.nome}}">{{/unless}}
             {{aviso}}
         </div>
     </div>

@@ -25,7 +25,22 @@ if (Meteor.isClient) {
     });
     
     Template.compromissoInfo.avisos = function() {
-        return Avisos.find({acordo_id:compromisso._id});
+        var avisos = Avisos.find({acordo_id:compromisso._id}).fetch();
+        var compromissos = new Array();
+        avisos.forEach(function (aviso) {
+            if(aviso.user_id == Meteor.userId())
+                aviso.avisoProprio = true;
+            else {
+                var outroUsuario = new Array();
+                outroUsuario.nome = (Meteor.users.findOne(aviso.user_id).profile.name).toString();
+                outroUsuario.idFacebook = (Meteor.users.findOne(aviso.user_id).services.facebook.id).toString();
+                aviso.outroUsuario = outroUsuario;
+            }
+            
+            compromissos.push(aviso)
+        });
+        
+        return compromissos;
     };
     
     Template.compromissoInfo.events ({ 
