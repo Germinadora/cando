@@ -13,6 +13,9 @@
                     novasTarefas.remove($(this).attr("data-id"));
         }});
         
+        if(!typeof Session.get("fbAmigos") === 'undefined') {
+            renderAutoComplete(Session.get("fbAmigos"));
+        }
         var usuarioDoo = Meteor.users.findOne(Meteor.userId());
         var token = usuarioDoo.services.facebook.accessToken;
         FB.api('/me/friends?fields=installed,name&access_token='+token, function(response) {
@@ -21,25 +24,31 @@
               amigo.value = amigo.name;
               amigos.push(amigo);
           });
-          $( "#frm-para" ).autocomplete({ lookup: amigos, onSelect: function (suggestion) {
-                $("#frm-para").attr("data-fbid", suggestion.id);
-                var usuarioSelecionado = Meteor.users.findOne({'services.facebook.id':suggestion.id});
-                if(usuarioSelecionado) {
-                    $("#frm-para").attr("data-val", usuarioSelecionado._id);
-              
-                    usuarioSelecionado = Meteor.users.findOne($('#frm-para').attr("data-val"));
-                    
-                    if(usuarioSelecionado._id == Meteor.userId())
-                        $('#destinatario-pic').fadeOut();
-                    else
-                        $('#destinatario-pic').fadeIn();
-                    $('#destinatario-pic').attr("src","http://graph.facebook.com/"+usuarioSelecionado.services.facebook.id+"/picture?width=120&height=120");
-                    $('#destinatario-pic').attr("title", usuarioSelecionado.profile.name);
-                } else {
-                    $.bootstrapGrowl("Usuário não cadastrado no CanDo.", { type: 'warning' });
-                }
-            } });
+          Session.set("fbAmigos",amigos);
+          renderAutoComplete(amigos);
         });
+    }
+    
+    usuarioSelecionado = "";
+    function renderAutoComplete(amigos) {
+        $( "#frm-para" ).autocomplete({ lookup: amigos, onSelect: function (suggestion) {
+            $("#frm-para").attr("data-fbid", suggestion.id);
+            var usuarioSelecionado = Meteor.users.findOne({'services.facebook.id':suggestion.id});
+            if(usuarioSelecionado) {
+                $("#frm-para").attr("data-val", usuarioSelecionado._id);
+          
+                usuarioSelecionado = Meteor.users.findOne($('#frm-para').attr("data-val"));
+                
+                if(usuarioSelecionado._id == Meteor.userId())
+                    $('#destinatario-pic').fadeOut();
+                else
+                    $('#destinatario-pic').fadeIn();
+                $('#destinatario-pic').attr("src","http://graph.facebook.com/"+usuarioSelecionado.services.facebook.id+"/picture?width=120&height=120");
+                $('#destinatario-pic').attr("title", usuarioSelecionado.profile.name);
+            } else {
+                $.bootstrapGrowl("Usuário não cadastrado no CanDo.", { type: 'warning' });
+            }
+        } });
     }
     
     Template.novoCompromisso.events ({
