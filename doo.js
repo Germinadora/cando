@@ -31,14 +31,14 @@ if (Meteor.isClient) {
         var hoje = new Date();
         hoje.setHours(0,0,0,0);
         var acordosAtrasados = Acordos.find({aceito:true, feito:{$ne:true}, cancelado:{$ne:true}, vencimento:{$lt:hoje}, $or:[{remetente:Meteor.userId()}, {destinatario:Meteor.userId()}]},{sort: {vencimento: -1}}); //acordos com vencimento anterior a hoje
-        return criarBlocos(acordosAtrasados);
+        return criarBlocos(acordosAtrasados.fetch());
     };
     
     Template.historico.blocos = function() {
         var hoje = new Date();
         hoje.setHours(0,0,0,0);
         var acordosAtrasados = Acordos.find({aceito:true, feito:true, $or:[{destinatario:Meteor.userId()}, {remetente:Meteor.userId()}]},{sort: {vencimento: -1}, limit:5}); //acordos antigos ja finalizados
-        return criarBlocos(acordosAtrasados);
+        return criarBlocos(acordosAtrasados.fetch());
     };
     
     Template.proximosAcordos.acordos = function() {
@@ -103,6 +103,7 @@ if (Meteor.isClient) {
 		}
 	}
 
+	// acordos - Array
 	function criarBlocos(acordos) {
 		var bloco = new Array();
 		var blocos = new Array();
@@ -110,7 +111,7 @@ if (Meteor.isClient) {
 		var entregasArray = new Array();
 		var recebimentosArray = new Array();
         var count = acordos.length;
-			
+		
 		acordos.forEach(function (acordo) {
             acordo.outroUsuario = getOutroUsuario(acordo);
             
