@@ -110,7 +110,8 @@
 				responsavel: responsavel, 
 				requisitos: requisitos, 
 				obs:$('#frm-obs').val(), 
-				aceito: aceito
+				aceito: aceito,
+                timestamp:new Date()
 				}, 
 				function(error,doc) {
 					if(doc) { 

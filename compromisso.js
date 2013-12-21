@@ -25,9 +25,11 @@ if (Meteor.isClient) {
     });
     
     Template.compromissoInfo.avisos = function() {
-        var avisos = Avisos.find({acordo_id:compromisso._id}).fetch();
-        var compromissos = new Array();
-        avisos.forEach(function (aviso) {
+        var mongoAvisos = Avisos.find({acordo_id:compromisso._id}).fetch();
+        var avisos = new Array();
+        mongoAvisos.forEach(function (aviso) {
+            if(aviso.timestamp) aviso.timestamp = moment(aviso.timestamp).fromNow();
+            
             if(aviso.user_id == Meteor.userId())
                 aviso.avisoProprio = true;
             else {
@@ -37,10 +39,30 @@ if (Meteor.isClient) {
                 aviso.outroUsuario = outroUsuario;
             }
             
-            compromissos.push(aviso)
+            avisos.push(aviso)
         });
         
-        return compromissos;
+        return avisos;
+    };
+    
+    Template.compromissoInfo.mensagens = function() {
+        var mongoMensagens = Mensagens.find({acordo_id:compromisso._id}).fetch();
+        var mensagens = new Array();
+        mongoMensagens.forEach(function (mensagem) {
+            mensagem.timestamp = moment(mensagem.timestamp).fromNow();
+            
+            if(mensagem.user_id == Meteor.userId())
+                mensagem.mensagemPropria = true;
+
+            var usuario = new Array();
+            usuario.nome = (Meteor.users.findOne(mensagem.user_id).profile.name).toString();
+            usuario.idFacebook = (Meteor.users.findOne(mensagem.user_id).services.facebook.id).toString();
+            mensagem.usuario = usuario;
+            
+            mensagens.push(mensagem)
+        });
+        
+        return mensagens;
     };
     
     Template.compromissoInfo.events ({ 
@@ -51,6 +73,14 @@ if (Meteor.isClient) {
         },
         'click #btn-add-aviso': function() {
             addAviso();
+        },
+        'keypress input#frm-mensagem': function (evt) {
+            if (evt.which === 13) {
+              enviarMensagem();
+            }
+        },
+        'click #btn-add-mensagem': function() {
+            enviarMensagem();
         }
     });
     
@@ -63,7 +93,7 @@ if (Meteor.isClient) {
     function addNota() {
         var nota = $('#frm-nota').val();
             if(nota.length > 0) {
-                Notas.insert({acordo_id:compromisso._id, user_id:Meteor.userId(), nota:nota}, function(error,doc) {
+                Notas.insert({acordo_id:compromisso._id, user_id:Meteor.userId(), nota:nota, timestamp:new Date()}, function(error,doc) {
                     $('#frm-nota').val("");
                 });
             }
@@ -72,7 +102,7 @@ if (Meteor.isClient) {
     function addAviso() {
         var aviso = $('#frm-aviso').val();
             if(aviso.length > 0) {
-                Avisos.insert({acordo_id:compromisso._id, user_id:Meteor.userId(), aviso:aviso}, function(error,doc) {
+                Avisos.insert({acordo_id:compromisso._id, user_id:Meteor.userId(), aviso:aviso, timestamp:new Date()}, function(error,doc) {
                     $('#frm-aviso').val("");
                 });
             }
@@ -85,5 +115,14 @@ if (Meteor.isClient) {
         } else {
             $.bootstrapGrowl("Somente quem criou o aviso pode deletá-lo.", { type: 'info' });
         }
+    }
+    
+    function enviarMensagem() {
+        var mensagem = $('#frm-mensagem').val();
+            if(mensagem.length > 0) {
+                Mensagens.insert({acordo_id:compromisso._id, user_id:Meteor.userId(), mensagem:mensagem, timestamp:new Date()}, function(error,doc) {
+                    $('#frm-mensagem').val("");
+                });
+            }
     }
 }

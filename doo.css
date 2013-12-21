@@ -132,6 +132,39 @@ h4, .panel-heading {
     cursor:default;
 }
 
+.quadrinho .timestamp {
+    display: block;
+    margin-top: 8px;
+}
+
+.mensagens {
+    max-height: 300px;
+    overflow: auto;
+}
+
+.mensagem {
+    margin: 5px;
+}
+
+.mensagem img {
+    cursor: default;
+}
+
+.mensagem .timestamp {
+    color: #7e7e7e;
+}
+
+.mensagem-texto {
+    position: relative;
+    margin-left: 45px;
+}
+
+.timestamp {
+    cursor: default;
+    font-size: 0.7em;
+    margin-left: 5px;
+}
+
 /*Autocomplete*/
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }

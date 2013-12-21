@@ -16,6 +16,8 @@
 		<div class="panel-heading">Para {{vencimento}}</div>
 		<div class="panel-body">
 			<h4 class="text-center">{{titulo}}</h4>
+            {{#if timestamp}}<small class="timestamp text-center"><i class="icon-time"></i> {{timestamp}}</small>{{/if}}
+            <br>
             <span class="outro-usuario"><i class="icon-user"></i> {{outroUsuario}}</span>
             {{> compromissoAcoes}}
             <p>{{obs}}</p>
@@ -41,6 +43,27 @@
                     <div class="input-group">
                         <input type="text" id="frm-aviso" name="frm-aviso" class="form-control" placeholder="Adicionar um novo aviso ao quadro..." data-rangelength="[1,200]" maxlength="200">
                         <span class="input-group-addon btn-add-enter" id="btn-add-aviso" title="Pressione ENTER ou clique aqui para adicionar">&crarr;</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="panel panel-info">
+                <div class="panel-heading">Chat</div>
+                <div class="panel-body">
+                    <div class="row">
+                        {{#if mensagens}}
+                            <div class="mensagens">
+                                {{#each mensagens}}
+                                    {{> mensagem}}
+                                {{/each}}
+                            </div>
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input type="text" id="frm-mensagem" name="frm-mensagem" class="form-control" placeholder="Envie uma mensagem..." data-rangelength="[1,200]" maxlength="200">
+                        <span class="input-group-addon btn-add-enter" id="btn-enviar-mensagem" title="Pressione ENTER ou clique aqui para enviar">&crarr;</span>
                     </div>
                 </div>
             </div>
@@ -125,6 +148,14 @@
             {{#if avisoProprio}}<button type="button" class="close" aria-hidden="true" data-id="{{this._id}}">&times;</button>{{/if}}
             {{#unless avisoProprio}}<img class="profile-pic small-profile-pic profile-pic-corner img-circle" src="http://graph.facebook.com/{{outroUsuario.idFacebook}}/picture?width=120&height=120" title="{{outroUsuario.nome}}">{{/unless}}
             {{aviso}}
+            {{#if timestamp}}<small class="timestamp text-center"><i class="icon-time"></i> {{timestamp}}</small>{{/if}}
         </div>
+    </div>
+</template>
+    
+<template name="mensagem">
+    <div class="mensagem clearfix">
+        <img class="pull-left profile-pic small-profile-pic img-circle" src="http://graph.facebook.com/{{usuario.idFacebook}}/picture?width=120&height=120" title="{{usuario.nome}}">
+        <div class="mensagem-texto">{{mensagem}} <small class="timestamp"><i class="icon-time"></i> {{timestamp}}</small></div>
     </div>
 </template>
