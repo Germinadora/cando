@@ -7,6 +7,8 @@
             {{#with compromissoInfo}}
                 {{> compromissoInfo }}
             {{/with}}
+            {{> quadroCompartilhado}}
+            {{> mensagens}}
         </div>
     </div>
 </template>
@@ -21,52 +23,6 @@
             <span class="outro-usuario"><i class="icon-user"></i> {{outroUsuario}}</span>
             {{> compromissoAcoes}}
             <p>{{obs}}</p>
-            
-            <div class="panel panel-info">
-                <div class="panel-heading">Quadro Compartilhado</div>
-                <div class="panel-body">
-                    <div class="row">
-                        {{#if requisitos}}
-                            <div class="col-md-4 col-sm-4">
-                                <div class="alert alert-info quadrinho">
-                                    <p><strong>Checklist</strong></p>
-                                    {{#each requisitos}}<p><small>{{this}}</small></p>{{/each}}
-                                </div>
-                            </div>
-                        {{/if}}
-                        {{#each avisos}}
-                            {{> quadrinho}}
-                        {{/each}}
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input type="text" id="frm-aviso" name="frm-aviso" class="form-control" placeholder="Adicionar um novo aviso ao quadro..." data-rangelength="[1,200]" maxlength="200">
-                        <span class="input-group-addon btn-add-enter" id="btn-add-aviso" title="Pressione ENTER ou clique aqui para adicionar">&crarr;</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="panel panel-info">
-                <div class="panel-heading">Chat</div>
-                <div class="panel-body">
-                    <div class="row">
-                        {{#if mensagens}}
-                            <div class="mensagens">
-                                {{#each mensagens}}
-                                    {{> mensagem}}
-                                {{/each}}
-                            </div>
-                        {{/if}}
-                    </div>
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input type="text" id="frm-mensagem" name="frm-mensagem" class="form-control" placeholder="Envie uma mensagem..." data-rangelength="[1,200]" maxlength="200">
-                        <span class="input-group-addon btn-add-enter" id="btn-enviar-mensagem" title="Pressione ENTER ou clique aqui para enviar">&crarr;</span>
-                    </div>
-                </div>
-            </div>
 		</div>
 	</div>
 </template>
@@ -142,6 +98,33 @@
     <li><span class="editable" data-id="{{_id}}">{{nota}}</span></li>
 </template>
     
+<template name="quadroCompartilhado">
+    <div class="panel panel-info">
+        <div class="panel-heading">Quadro Compartilhado</div>
+        <div class="panel-body">
+            <div class="row">
+                {{#if requisitos}}
+                    <div class="col-md-4 col-sm-4">
+                        <div class="alert alert-info quadrinho">
+                            <p><strong>Checklist</strong></p>
+                            {{#each requisitos}}<p><small>{{this}}</small></p>{{/each}}
+                        </div>
+                    </div>
+                {{/if}}
+                {{#each avisos}}
+                    {{> quadrinho}}
+                {{/each}}
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input type="text" id="frm-aviso" name="frm-aviso" class="form-control" placeholder="Adicionar um novo aviso ao quadro..." data-rangelength="[1,200]" maxlength="200">
+                <span class="input-group-addon btn-add-enter" id="btn-add-aviso" title="Pressione ENTER ou clique aqui para adicionar">&crarr;</span>
+            </div>
+        </div>
+    </div>
+</template>
+    
 <template name="quadrinho">
     <div class="col-md-4 col-sm-4">
         <div class="alert alert-warning quadrinho {{#if avisoProprio}}alert-dismissable{{/if}}">
@@ -149,6 +132,29 @@
             {{#unless avisoProprio}}<img class="profile-pic small-profile-pic profile-pic-corner img-circle" src="http://graph.facebook.com/{{outroUsuario.idFacebook}}/picture?width=120&height=120" title="{{outroUsuario.nome}}">{{/unless}}
             {{aviso}}
             {{#if timestamp}}<small class="timestamp text-center"><i class="icon-time"></i> {{timestamp}}</small>{{/if}}
+        </div>
+    </div>
+</template>
+    
+<template name="mensagens">
+    <div class="panel panel-info">
+        <div class="panel-heading">Chat</div>
+        <div class="panel-body">
+            <div class="row">
+                {{#if mensagens}}
+                    <div class="mensagens">
+                        {{#each mensagens}}
+                            {{> mensagem}}
+                        {{/each}}
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="input-group">
+                <input type="text" id="frm-mensagem" name="frm-mensagem" class="form-control" placeholder="Enviar uma mensagem..." data-rangelength="[1,200]" maxlength="200">
+                <span class="input-group-addon btn-add-enter" id="btn-enviar-mensagem" title="Pressione ENTER ou clique aqui para enviar">&crarr;</span>
+            </div>
         </div>
     </div>
 </template>

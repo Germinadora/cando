@@ -24,7 +24,7 @@ if (Meteor.isClient) {
         }
     });
     
-    Template.compromissoInfo.avisos = function() {
+    Template.quadroCompartilhado.avisos = function() {
         var mongoAvisos = Avisos.find({acordo_id:compromisso._id}).fetch();
         var avisos = new Array();
         mongoAvisos.forEach(function (aviso) {
@@ -45,7 +45,7 @@ if (Meteor.isClient) {
         return avisos;
     };
     
-    Template.compromissoInfo.mensagens = function() {
+    Template.mensagens.mensagens = function() {
         var mongoMensagens = Mensagens.find({acordo_id:compromisso._id}).fetch();
         var mensagens = new Array();
         mongoMensagens.forEach(function (mensagem) {
@@ -65,7 +65,11 @@ if (Meteor.isClient) {
         return mensagens;
     };
     
-    Template.compromissoInfo.events ({ 
+    Template.mensagem.rendered = function() {
+        divScroll(".mensagens");
+    };
+    
+    Template.compromisso.events ({ 
         'keypress input#frm-aviso': function (evt) {
             if (evt.which === 13) {
               addAviso();
