@@ -116,6 +116,7 @@
 				function(error,doc) {
 					if(doc) { 
 						$.bootstrapGrowl("Compromisso criado com sucesso.", { type: 'success' });
+                        Meteor.call("notificarEmail",doc);
 						Router.go('home');
 					}
 					else
