@@ -84,12 +84,14 @@
                 <input type="text" class="form-control" name="frm-nota" id="frm-nota" placeholder="Digite uma nova nota..." required="required" data-rangelength="[1,200]" maxlength="200">
                 <span class="input-group-addon btn-add-enter" id="btn-add-nota" title="Pressione ENTER ou clique aqui para adicionar">&crarr;</span>
             </div>
-            {{#if notas}}<ul>{{/if}}
-                {{#constant}}<editable>{{/constant}}
-                {{#each notas}}
-                    {{> nota}}
-                {{/each}}
-            {{#if notas}}</ul>{{/if}}
+            {{#if notas}}
+				<ul>
+					<editable></editable>
+					{{#each notas}}
+						{{> nota}}
+					{{/each}}
+				</ul>
+			{{/if}}
         </div>
     </div>
 </template>

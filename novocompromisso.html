@@ -52,7 +52,7 @@
                                     {{#if tarefas}}
                                         <div id="pn-novas-tarefas">
                                             <ul>
-                                                {{#constant}}<editable>{{/constant}}
+                                                <editable></editable>
                                                 {{#each tarefas}}
                                                     {{> tarefa}}
                                                 {{/each}}
@@ -76,7 +76,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </template>
     
 <template name="tarefa">

@@ -18,7 +18,7 @@
           <div class="panel-heading">Atrasado <i class="icon-exclamation pull-right"></i></div>
           <div class="panel-body">
             {{#each blocos}}
-                {{> atrasado-bloco}}
+                {{> atrasadoBloco}}
             {{/each}}
           </div>
         </div>
@@ -39,7 +39,7 @@
           <div class="panel-heading">Histórico</div>
           <div class="panel-body">
             {{#each blocos}}
-                {{> historico-bloco}}
+                {{> historicoBloco}}
             {{/each}}
           </div>
         </div>
@@ -55,7 +55,7 @@
                     <table class="table table-hover">
                         <tr><th>Com quem</th><th>O quê</th><th>Para quando</th><th>&nbsp;</th></tr>
                         {{#each pendentes}}
-                            {{> compromisso-pendente}}
+                            {{> compromissoPendente}}
                         {{/each}}
                     </table>
                 </div>
@@ -64,7 +64,7 @@
     {{/if}}
 </template>
 
-<template name="compromisso-pendente">
+<template name="compromissoPendente">
     <tr>
         <td><i class="icon-user"></i> {{outroUsuario}}</td>
         <td><a href="{{pathFor 'compromisso'}}">{{titulo}}</a></td>
@@ -92,37 +92,37 @@
     </tr>
 </template>
 
-<template name="atrasado-bloco">
+<template name="atrasadoBloco">
 	<h4>{{data}}</h4>
 	<ul class="list-group">
 		{{#if entregas}}<li class="list-group-item"><i class="icon-circle-arrow-up"></i> Entregas</li>{{/if}}
 		{{#each entregas}}
-			{{> atrasado-entrega}}
+			{{> atrasadoEntrega}}
 		{{/each}}
 		
 		{{#if recebimentos}}<li class="list-group-item"><i class="icon-circle-arrow-down"></i> Recebimentos</li>{{/if}}
 		{{#each recebimentos}}
-			{{> atrasado-recebimento}}
+			{{> atrasadoRecebimento}}
 		{{/each}}
 	</ul>
 </template>
 
-<template name="historico-bloco">
+<template name="historicoBloco">
 	<h4>{{data}}</h4>
 	<ul class="list-group">
 		{{#if entregas}}<li class="list-group-item"><i class="icon-circle-arrow-up"></i> Entregas</li>{{/if}}
 		{{#each entregas}}
-			{{> historico-entrega}}
+			{{> historicoEntrega}}
 		{{/each}}
 		
 		{{#if recebimentos}}<li class="list-group-item"><i class="icon-circle-arrow-down"></i> Recebimentos</li>{{/if}}
 		{{#each recebimentos}}
-			{{> historico-recebimento}}
+			{{> historicoRecebimento}}
 		{{/each}}
 	</ul>
 </template>
 
-<template name="atrasado-entrega">
+<template name="atrasadoEntrega">
     <li class="list-group-item list-acordo-atrasado">
         <a href="{{pathFor 'compromisso'}}">
             {{titulo}}
@@ -132,7 +132,7 @@
     </li>
 </template>
 
-<template name="atrasado-recebimento">
+<template name="atrasadoRecebimento">
     <li class="list-group-item list-acordo-atrasado">
         <a href="{{pathFor 'compromisso'}}">
             {{titulo}}
@@ -142,7 +142,7 @@
     </li>
 </template>
 
-<template name="historico-entrega">
+<template name="historicoEntrega">
     <li class="list-group-item list-acordo-atrasado">
         <a href="{{pathFor 'compromisso'}}">
             {{titulo}}
@@ -152,7 +152,7 @@
     </li>
 </template>
 
-<template name="historico-recebimento">
+<template name="historicoRecebimento">
     <li class="list-group-item list-acordo-atrasado">
         <a href="{{pathFor 'compromisso'}}">
             {{titulo}}
@@ -217,7 +217,8 @@
 <template name="entrega">
     <li class="list-group-item list-group-item-left list-acordo">
         <a href="{{pathFor 'compromisso'}}">
-            <span {{#if notificacoes}}style="text-weight:bold"{{/if}}>{{titulo}}</span>{{#if notificacoes}}{{#if starred}}<i class="icon-star pull-right"></i>{{/if}}<span class="badge">{{qtd-notificacoes}}</span>{{/if}}
+            {{#if notificacoes}}<span style="text-weight:bold">{{titulo}}</span>{{#if starred}}<i class="icon-star pull-right"></i>{{/if}}<span class="badge">{{qtdNotificacoes}}</span>{{/if}}
+            {{#unless notificacoes}}<span>{{titulo}}</span>{{/unless}}
             <span class="outro-usuario"><i class="icon-user"></i>{{outroUsuario}}</span>
         </a>
         {{> compromissoDetalhes}}
@@ -227,7 +228,8 @@
 <template name="recebimento">
     <li class="list-group-item list-group-item-right list-acordo">
         <a href="{{pathFor 'compromisso'}}">
-            <span {{#if notificacoes}}style="text-weight:bold"{{/if}}>{{titulo}}</span>{{#if notificacoes}}{{#if starred}}<i class="icon-star pull-right"></i>{{/if}}<span class="badge">{{qtd-notificacoes}}</span>{{/if}}
+            {{#if notificacoes}}<span style="text-weight:bold">{{titulo}}</span>{{#if starred}}<i class="icon-star pull-right"></i>{{/if}}<span class="badge">{{qtdNotificacoes}}</span>{{/if}}
+            {{#unless notificacoes}}<span>{{titulo}}</span>{{/unless}}
             <span class="outro-usuario"><i class="icon-user"></i>{{outroUsuario}}</span>
         </a>
         {{> compromissoDetalhes}}
